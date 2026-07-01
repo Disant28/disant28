@@ -1,0 +1,57 @@
+function analyze() {
+  let url = document.getElementById("urlInput").value;
+  let result = document.getElementById("result");
+  let scoreText = document.getElementById("score");
+
+  if (!url) {
+    result.innerHTML = "Please enter a URL";
+    return;
+  }
+
+  let score = 0;
+
+  // phishing logic
+  if (!url.startsWith("https")) score += 30;
+  if (url.includes("login")) score += 20;
+  if (url.includes("verify")) score += 20;
+  if (url.includes("free")) score += 15;
+  if (url.length > 75) score += 15;
+
+  let status = "";
+
+  if (score <= 20) status = "🟢 SAFE";
+  else if (score <= 50) status = "🟡 LOW RISK";
+  else if (score <= 80) status = "🟠 MEDIUM RISK";
+  else status = "🔴 HIGH RISK (PHISHING)";
+
+  result.innerHTML = status;
+  scoreText.innerHTML = "Risk Score: " + score + "/100";
+
+  saveHistory(url, status);
+}
+
+function saveHistory(url, status) {
+  let data = JSON.parse(localStorage.getItem("history")) || [];
+  data.push({url, status});
+  localStorage.setItem("history", JSON.stringify(data));
+
+  let list = document.getElementById("historyList");
+  list.innerHTML = "";
+
+  data.slice(-5).forEach(item => {
+    let li = document.createElement("li");
+    li.innerHTML = item.url + " → " + item.status;
+    list.appendChild(li);
+  });
+}
+
+window.onload = function() {
+  let data = JSON.parse(localStorage.getItem("history")) || [];
+  let list = document.getElementById("historyList");
+
+  data.forEach(item => {
+    let li = document.createElement("li");
+    li.innerHTML = item.url + " → " + item.status;
+    list.appendChild(li);
+  });
+}
