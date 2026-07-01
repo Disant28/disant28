@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CyberShield Pro</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>🛡 CyberShield Pro</h1>
+    <p>AI-Based Phishing Website Detection System</p>
+  </header>
+
+  <div class="container">
+
+    <input type="text" id="urlInput" placeholder="Enter website URL (https://example.com)">
+    <button onclick="analyze()">Scan Website</button>
+
+    <div class="result-box">
+      <h2 id="result">Waiting for scan...</h2>
+      <p id="score"></p>
+    </div>
+
+    <div class="history">
+      <h2>Scan History</h2>
+      <ul id="historyList"></ul>
+    </div>
+
+    <div class="tips">
+      <h2>Cyber Safety Tips</h2>
+      <p>✔ Always check HTTPS</p>
+      <p>✔ Avoid fake login pages</p>
+      <p>✔ Verify domain spelling carefully</p>
+      <p>✔ Never trust unknown links</p>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
